@@ -6,7 +6,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <!-- Bootstrap CSS -->
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-      <link rel="stylesheet" href="../static/styles/style.css">
+      <!-- <link href="static/styles/style.css" rel="stylesheet">-->
      <!-- Optional JavaScript -->
       <!-- jQuery first, then Popper.js, then Bootstrap JS -->
       <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -74,7 +74,6 @@
               <h2>Select the Source</h2>
                <div class="api mt-3">
                   <select class="form-control " id="api" name="api" autofocus >
-                     <option></option>
                      <option {% if flask_option == "twitterapi"%} selected {% endif %} value="twitterapi">TWITTER</option>
                      <option {% if flask_option == "tmdbapi"%} selected {% endif %} value="tmdbapi">TMDB</option>
                   </select>
