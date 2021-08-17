@@ -30,8 +30,8 @@ def get_tweets():
     df = twitter_ext.tweettable(quest)
     sample = []
     for row in df.itertuples():
-        print(row)
-        sample.append(row[0]['text'])
+        
+        sample.append(row)
     tables = {'tables': sample}
 
     return tables
