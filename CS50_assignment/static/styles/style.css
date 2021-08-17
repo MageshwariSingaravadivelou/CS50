@@ -1,0 +1,32 @@
+h1
+{
+	font-size: 50px;
+	text-align: center;
+	background-color: darkblue;
+	color: white;
+	
+}
+
+web {
+	background-color: lightblue;
+}
+
+h2
+{
+	font-size: 20px;
+	text-align: center;
+}
+
+.column-row,.output-row,.api-row
+{
+	border-radius:0;
+	border-style: solid;
+	border-width: 1px;
+	border-color:lightblue;
+}
+
+.btn
+{
+	background-color:lightblue;
+	color:white;
+}

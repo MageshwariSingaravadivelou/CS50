@@ -1,0 +1,368 @@
+    <!doctype html>
+<html lang="en">
+   <head>
+      <!-- Required meta tags -->
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <!-- Bootstrap CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+      <link rel="stylesheet" href="../static/styles/style.css">
+     <!-- Optional JavaScript -->
+      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+      <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+      <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+   
+	   <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.js"></script>
+     -->
+      <title>CS50 Course - Project</title>
+
+      <style>
+
+         table,th,td
+         {
+            text-align: center;
+            font-family: Arial;
+            font-size: small;
+            
+         }
+         th{
+            color: white;
+            background-color:blue;
+         }
+          h1 {
+              font-size: 25px;
+              text-align: center;
+              background-color: darkblue;
+              color: white;
+          }
+
+          web {
+              color: lightblue;
+          }
+
+          h2 {
+              padding-top: 10px;
+              font-size: 20px;
+              text-align: center;
+          }
+
+          .column-row, .output-row, .api-row {
+              border-radius: 0;
+              border-style: solid;
+              border-width: 1px;
+              border-color: lightblue;
+          }
+
+          .btn {
+              background-color: lightblue;
+              color: white;
+          }
+         
+      </style>
+   </head>
+   <body>
+    <div class="web">
+      <h1>ANALYSIS TOOL</h1>
+        <br />
+        <br />
+      <div class="container">
+         <div class="row">
+            <div class="col-sm-4 api-row">
+			<!--<form method="POST" action="">-->
+              <h2>Select the Source</h2>
+               <div class="api mt-3">
+                  <select class="form-control " id="api" name="api" autofocus >
+                     <option></option>
+                     <option {% if flask_option == "twitterapi"%} selected {% endif %} value="twitterapi">TWITTER</option>
+                     <option {% if flask_option == "tmdbapi"%} selected {% endif %} value="tmdbapi">TMDB</option>
+                  </select>
+               </div>
+               <div class="key mt-3">
+                  <input type="text" class="form-control" value="{{ request.form.get('keyword','')}}"  name="keyword" id="keyword" pattern="([a-zA-Z]+)" title="Only alphabets are accepeted" placeholder="Keyword"required>
+               </div>
+               <div class="row mt-3 mb-1">
+                  <div class="col-sm-3"></div>
+                  <div class="buttons col-sm-6">
+                     <button type="submit" name= "apivalue" id="apivalue"  class="btn form-control" >Fetch Data</button>
+                  </div>
+				  <!--</form>-->
+                  <div class="col-sm-3"></div>
+               </div>
+            </div>
+            <div class="col-sm-1">
+            </div>
+            <div class="col-sm-7 column-row">
+              
+               <div class="form=group row">
+                  <div class="col-sm-5">
+                    <h2>Columns</h2>
+                     <select class="form-control" id="columns" name="columns" autofocus>
+                        <option></option>
+                        <option value="twitteapi">TWITTER</option>
+                        <option value="tmdbapi">TMDB</option>
+                     </select>
+                  </div>
+                  <div class="col-sm-2">
+                  </div>
+                  <div class="col-sm-5">
+                    <h2>Summary</h2>
+                     <select class="form-control" id="summary" name="summary" autofocus>
+                        <option value="All">All</option>
+                        <option value="Median">Median</option>
+                        <option value="Sum">Sum</option>
+                        <option value="Count">Count</option>
+                        <option value="Mean">Mean</option>
+                        <option value="Std">Std</option>
+                        <option value="Nulls">Null</option>
+                        <option value="Distinct Count">Distinct Count</option>
+                                               
+                     </select>
+                  </div>
+               </div>
+               <div class="form-group row">
+               </div>
+               <div class="form-group row">
+                  <div class="col-sm-4">
+                  </div>
+                  <div class="col-sm-4">
+                     <button type="submit" name= "getstats" id="getstats" class="btn form-control">Get Stats</button>
+                  </div>
+               </div>
+               <div class="col-sm-4">
+               </div>
+            </div>
+         </div>
+      </div>
+      <div>
+         <div class="container mt-4">
+            <div class="row jumbotron output-row" style="text-align: center;display:flex;
+            align-items: center;
+            justify-content: center;background-color: white! important;" >
+            <h2 id="details"></h2>
+            <div id="details_table"></div>
+            </div>
+            </div>
+         </div>
+      </div>
+
+
+<script>
+
+$(document).on('click','#apivalue',function(e){
+e.preventDefault();
+console.log("inside feedbackbutton");
+$('#details_table').html("");
+
+//    $("document").on("click","#apivalue",funtion(){
+//       var api=$('#api').find(":selected").text();
+//       var keyword=$("input[name='keyword']").val();
+// 	  var apivalue=$("select[name='api']").val();
+//       console.log(api);
+//       console.log(keyword);
+// 	  console.log(apivalue);
+// //       $.ajax({
+// //       type: "POST",6644
+// //       url: "get_estimatedtime.php",
+// //       dataType: 'json',
+// //       data: {
+// //           ticketnumber: ticketnumber
+// //       },
+// //       cache: false,
+// //       success: function(response) {                        
+// //           var idname = ["completepercentage1","estimatedtime1","remainingtime1"];
+// //           for (i=0;i<idname.length;i++)
+// //           {
+// //               // idname[i]+=index;
+// //               $('#'+idname[i]).find('option').remove();
+// //           }
+// //           $('#'+idname[1]).val("");
+// //           for(var i = parseInt(response.prev_completepercentage); i <=100 ; i+=5)
+// //           {   var option="";
+// //               option = '<option value="'+i+'">' +i+ '</option>';
+// //               $('#'+idname[0]).append(option);
+// //           }
+// //           if(response.prev_estimatedtime){
+// //           $('#'+idname[1]).val(response.prev_estimatedtime);
+// //           for(var i = parseInt(response.prev_remainingtime); i>=0; i--)
+// //           {   var option="";
+// //               option = '<option value="'+i+'">' +i+ '</option>';
+// //               $('#'+idname[2]).append(option);
+// //           }
+// //           }
+// //   }
+// //   }); 
+// });
+
+
+// $("#details").html("");
+var api=$('#api').find(":selected").text();
+      var keyword=$("input[name='keyword']").val();
+	  var apivalue=$("select[name='api']").val();
+      console.log(api);
+      console.log(keyword);
+     console.log(apivalue);
+     $("#details").html("Fetching Data");
+     if(api=='TWITTER')
+     {   
+      $('#columns')
+    .find('option')
+    .remove()
+    .end()
+    .append('<option value="All">All</option>')
+    .val('whatever');
+
+    {$.ajax({
+      type: "GET",
+      url: "/get_tweets",
+      dataType: 'json',
+      data: {
+          quest: keyword
+      },
+      cache: false,
+      success: function(response) { 
+         var data=response;
+         console.log(data.tables);
+         $('#details').html("");
+         $('#details_table').append(data.tables);
+  }});
+
+     }
+
+      $.ajax({
+      type: "GET",
+      url: "/get_twitter_details",
+      dataType: 'json',
+      data: {
+          quest: keyword,
+          use: 'col'
+      },
+      cache: false,
+      success: function(response) {                        
+            
+         var data=response;
+         // $('#details').val(data[0].value);
+         var i;
+         for (i=0;i<data.col.length;i++)
+         {
+            var vals= data.col[i];
+            // console.log(vals)
+            var str ='<option value="'+vals+'">'+vals+'</option>';
+            $('#columns').append(str);
+
+         }
+         
+         $("#details").html("Data Fetched");
+// . Choose Columns and Summary Function.
+  }
+  });
+
+     }
+
+     if(api=='TMDB')
+     {
+
+      $('#columns')
+    .find('option')
+    .remove()
+    .end()
+    .append('<option value="All">All</option>')
+    .val('whatever');
+
+      $.ajax({
+      type: "GET",
+      url: "/get_tmdb_details",
+      dataType: 'json',
+      data: {
+          quest: keyword,
+          use: 'col'
+      },
+      cache: false,
+      success: function(response) {                        
+            
+         var data=response;
+         // $('#details').val(data[0].value);
+         var i;
+         for (i=0;i<data.col.length;i++)
+         {
+            var vals= data.col[i];
+            // console.log(vals)
+            var str ='<option value="'+vals+'">'+vals+'</option>';
+            $('#columns').append(str);
+
+         }
+
+         $("#details").html("Data Fetched. Choose Columns and Summary Function.");
+
+
+  }
+  });
+
+     }
+// var prefix = $(this).closest('tr').find('td:eq(1)').text();
+// var ticketnumber = $(this).closest('tr').find('td:eq(2)').text();
+// window.open("feedback.php?prefix="+prefix+"&ticketnumber="+ticketnumber+"");
+});
+
+$(document).on('click','#getstats',function(e){
+   e.preventDefault();
+   $("#details").html("Getting Stats");
+   $('#details_table').html("");
+   var api=$('#api').find(":selected").text();
+   var keyword=$("input[name='keyword']").val();
+   var column_value=$("select[name='columns']").val();
+   var summary_value=$("select[name='summary']").val();
+   console.log(column_value,summary_value);
+   if(api=='TWITTER')
+     {$.ajax({
+      type: "GET",
+      url: "/get_twitter_details",
+      dataType: 'json',
+      data: {
+          quest: keyword,
+          column:column_value,
+          summary:summary_value,
+          use: 'stats'
+      },
+      cache: false,
+      success: function(response) { 
+         var data=response;
+         console.log(data.tables);
+         $('#details').html("");
+         $('#details_table').append(data.tables);
+  }});
+
+     }
+
+     if(api=='TMDB')
+     {
+      console.log("inside tmdb get stats function");
+      $.ajax({
+      type: "GET",
+      url: "/get_tmdb_details",
+      dataType: 'json',
+      data: {
+          quest: keyword,
+          column:column_value,
+          summary:summary_value,
+          use: 'stats'
+      },
+      cache: false,
+      success: function(response) {                        
+         var data=response;
+         console.log(data.tables);
+         $('#details').html("");
+         $('#details_table').append(data.tables);
+       }
+      });
+     }
+
+
+});
+  
+    
+   </script>
+      </body>
+</html>
+
