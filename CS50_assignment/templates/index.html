@@ -199,11 +199,11 @@ $('#details_table').html("");
 
 // $("#details").html("");
 var api=$('#api').find(":selected").text();
-      var keyword=$("input[name='keyword']").val();
+     var keyword=$("input[name='keyword']").val();
 	  var apivalue=$("select[name='api']").val();
       console.log(api);
       console.log(keyword);
-     console.log(apivalue);
+     
      $("#details").html("Fetching Data");
      if(api=='TWITTER')
      {   
@@ -263,7 +263,6 @@ var api=$('#api').find(":selected").text();
 
      if(api=='TMDB')
      {
-
       $('#columns')
     .find('option')
     .remove()
@@ -295,7 +294,6 @@ var api=$('#api').find(":selected").text();
          }
 
          $("#details").html("Data Fetched. Choose Columns and Summary Function.");
-
 
   }
   });
@@ -361,7 +359,6 @@ $(document).on('click','#getstats',function(e){
 
 
 });
-  
     
    </script>
       </body>

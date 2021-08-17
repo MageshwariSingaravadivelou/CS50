@@ -51,7 +51,6 @@ def get_twitter_details():
         return json_string
 
     if (use == 'stats'):
-        
         col1s = df.columns.tolist()
         col = request.args.get('column')
         summary = request.args.get('summary')
