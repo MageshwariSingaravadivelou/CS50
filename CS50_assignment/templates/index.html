@@ -80,7 +80,8 @@
                   </select>
                </div>
                <div class="key mt-3">
-                  <input type="text" class="form-control" value="{{ request.form.get('keyword','')}}"  name="keyword" id="keyword" pattern="([a-zA-Z]+)" title="Only alphabets are accepeted" placeholder="Keyword"required>
+                  <input type="text" class="form-control" value="Keyword"  name="keyword" id="keyword" pattern="([a-zA-Z]+)" title="Only alphabets are accepeted" placeholder="Keyword"required>
+               <!-- {{ request.form.get('keyword','')}} -->
                </div>
                <div class="row mt-3 mb-1">
                   <div class="col-sm-3"></div>
