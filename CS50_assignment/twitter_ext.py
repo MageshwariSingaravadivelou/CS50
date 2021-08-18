@@ -1,34 +1,21 @@
-import locale # to format currency as USD
-locale.setlocale( locale.LC_ALL, '' )
-import json
 import pandas as pd
-import matplotlib
-import matplotlib.pyplot as plt
-from matplotlib.ticker import FuncFormatter # to format currency on charts axis
-from pandas.io.json import json_normalize
 import config
 import tweepy
 
 
-api_key = config.api_key
-api_key_secret = config.api_key_secret
-access_token = config.access_token
-access_token_secret = config.access_token_secret
-
-auth = tweepy.OAuthHandler(api_key, api_key_secret)
-auth.set_access_token(access_token, access_token_secret)
+# Authenticate the API keys using tweepy package
+auth = tweepy.OAuthHandler(config.API_KEY, config.API_KEY_SECRET)
+auth.set_access_token(config.ACCESS_TOKEN, config.ACCESS_TOKEN_SECRET)
 
 api = tweepy.API(auth)
 
 
 def tweettable(quest):
-
     tweets = tweepy.Cursor(api.search, q=quest, lang="en").items(100)
-    dfs = pd.DataFrame()
+    tweets_df = pd.DataFrame()
     for tweet in tweets:
-        file=tweet._json
         df=pd.DataFrame()
-        df=json_normalize(file)
-        dfs = pd.concat([df, dfs], sort=False)
-    dfs.reset_index(inplace=True,drop=True)
-    return dfs
+        df=pd.json_normalize(tweet._json)
+        tweets_df = pd.concat([df, tweets_df], sort=False)
+    tweets_df.reset_index(inplace=True,drop=True)
+    return tweets_df
