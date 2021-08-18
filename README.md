@@ -1,29 +1,30 @@
 ## Analysis Tool - CS50
 
-You can use the [editor on GitHub](https://github.com/MageshwariSingaravadivelou/CS50.github.io/edit/main/README.md) to maintain and preview the content for your website in Markdown files.
+Analysis Tool is a simple Web Application Tool developed to analyze the dataset/API and for enhancing the skills that learned using [CS50 course](https://cs50.harvard.edu/x/2021/). 
 
+**Key Skills:** _Python, Flask, HTML, CSS, Javascript, API_
 
-### Markdown
+### API - Used
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+1. Twitter API | [Link](https://developer.twitter.com/en/docs/twitter-api)
+2. TMDB API | [Link](https://developers.themoviedb.org/3)
 
-```markdown
-Syntax highlighted code block
+### Components of the Tool
 
-# Header 1
-## Header 2
-### Header 3
+- API Dropdown
+A user can choose between Twitter API and TMDB API using the drop down provided under "API" Section in the dashboard
 
-- Bulleted
-- List
+- Keyword (Input Box)
+You should receive the keyword input from the user through this Input box (It should accept only alphabets)
 
-1. Numbered
-2. List
+- Fetch Data (Button)
+Clicking on this button should fetch the data for the specified keyword and from the selected API
 
-**Bold** and _Italic_ and `Code` text
+- Columns Dropdown
+You should display the list of columns available in the API choosen from API Dropdown box (If an user chooses TMDB, all the columns from TMDB API should be displayed in this dropdown)
 
-[Link](url) and ![Image](src)
-```
+- Summary Dropdown
+You should display the operators mentioned in the sample dashboard. Please click on the dropdown in this excel sheet to get the operators required.
 
 ### Jekyll Themes
 
